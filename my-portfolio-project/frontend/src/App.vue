@@ -15,8 +15,8 @@
           <p class="role-tag">// 2nd Year BSCS-SF Student</p>
           <h1>Heinrich M.<br><span class="highlight">Tobias</span></h1>
           <p class="bio">
-            19-year-old student at **Asia Pacific College**. 
-            Specializing in Web Security, Embedded Systems, and building secure applications.
+            19-year-old Student at Asia Pacific College. 
+            Passionate about Web Security, Embedded Systems, and building secure applications.
           </p>
           <div class="cta-btns">
             <a href="https://github.com/Eleboy08" target="_blank" class="btn-red">GITHUB</a>
@@ -31,6 +31,22 @@
         </div>
       </div>
     </header>
+
+    <section id="projects" class="project-section">
+      <h2 class="title">Technical <span class="highlight">Projects</span></h2>
+      <div class="project-grid">
+        <div class="card">
+          <span class="cat">Cybersecurity</span>
+          <h3>Jester's Hat Vault</h3>
+          <p>Secure file management system using AES encryption.</p>
+        </div>
+        <div class="card">
+          <span class="cat">Embedded Systems</span>
+          <h3>Smart Alarm</h3>
+          <p>Arduino-based system with pressure mats and smart lighting.</p>
+        </div>
+      </div>
+    </section>
 
     <section id="guestbook" class="guestbook-section">
       <h2 class="title">Guest <span class="highlight">Book</span></h2>
@@ -50,10 +66,6 @@
         </div>
       </div>
     </section>
-
-    <footer class="site-footer">
-      <p>&copy; 2026 Heinrich M. Tobias | Asia Pacific College</p>
-    </footer>
   </div>
 </template>
 
@@ -64,14 +76,16 @@ const comments = ref([]);
 const newComment = ref({ name: '', message: '' });
 const loading = ref(false);
 
-// *** REPLACE THIS with your Port 5000 Link from the PORTS tab! ***
+/** * REPLACE THE LINK BELOW with your Port 5000 Forwarded Address 
+ * and keep '/api/comments' at the end!
+ */
 const API_URL = 'https://cuddly-winner-97r7jqqqqgj53xg5q-5000.app.github.dev/api/comments'; 
 
 const fetchComments = async () => {
   try {
     const res = await fetch(API_URL);
     if (res.ok) comments.value = await res.json();
-  } catch (err) { console.error("Database sync failed."); }
+  } catch (err) { console.error("Database connection failed."); }
 };
 
 const submitComment = async () => {
@@ -96,20 +110,24 @@ onMounted(fetchComments);
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
-:root { --red: #ff3333; --bg: #0d0d0d; --surface: #171717; }
+:root { --red: #ff3333; --bg: #0d0d0d; --card: #181818; }
 body { background: var(--bg); color: #fff; font-family: 'Outfit', sans-serif; margin: 0; scroll-behavior: smooth; }
 
+/* Global Styling */
 .highlight { color: var(--red); }
-.btn-red { background: var(--red); border: none; color: white; padding: 14px 28px; font-weight: 900; cursor: pointer; border-radius: 4px; display: inline-block; transition: 0.3s; }
-.btn-red:hover { box-shadow: 0 0 20px rgba(255, 51, 51, 0.4); }
+.btn-red { background: var(--red); border: none; color: white; padding: 14px 28px; font-weight: 900; cursor: pointer; border-radius: 4px; text-decoration: none; display: inline-block; }
 .btn-outline { border: 1px solid var(--red); color: var(--red); padding: 14px 28px; text-decoration: none; margin-left: 15px; border-radius: 4px; display: inline-block; }
 .btn-accent { color: var(--red); text-decoration: none; font-weight: 900; padding: 10px 20px; border: 1px solid var(--red); }
 
+/* Layouts */
 .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
 .nav-container { display: flex; justify-content: space-between; padding: 50px 0; align-items: center; }
-.nav-logo { font-weight: 900; font-size: 1.5rem; }
-.nav-links a { margin-left: 25px; text-decoration: none; color: #888; font-size: 0.9rem; }
+.nav-logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
+.nav-logo span { color: var(--red); }
+.nav-links a { margin-left: 25px; text-decoration: none; color: #888; font-size: 0.9rem; transition: 0.3s; }
+.nav-links a:hover { color: var(--red); }
 
+/* Hero */
 .hero-section { padding: 80px 0; }
 .hero-flex { display: flex; align-items: center; justify-content: space-between; gap: 60px; }
 .hero-text h1 { font-size: 5rem; line-height: 1; margin: 15px 0; font-weight: 900; }
@@ -120,16 +138,22 @@ body { background: var(--bg); color: #fff; font-family: 'Outfit', sans-serif; ma
 .profile-img { width: 100%; border-radius: 12px; border: 2px solid #222; position: relative; z-index: 5; }
 .glow-effect { position: absolute; top: 15px; left: 15px; width: 100%; height: 100%; border: 3px solid var(--red); border-radius: 12px; z-index: 1; opacity: 0.4; }
 
+/* Sections */
 .title { font-size: 3rem; text-align: center; margin-bottom: 60px; font-weight: 900; }
-.guest-interface { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; background: #111; padding: 40px; border-radius: 12px; border: 1px solid #222; }
+.project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 100px; }
+.card { background: var(--card); padding: 40px; border-radius: 12px; transition: 0.3s; }
+.card:hover { transform: translateY(-5px); border-bottom: 3px solid var(--red); }
+.cat { color: var(--red); font-size: 0.8rem; font-weight: 900; text-transform: uppercase; }
+
+/* Guestbook */
+.guest-interface { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; background: #111; padding: 40px; border-radius: 12px; border: 1px solid #222; }
 input, textarea { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 15px; margin-bottom: 20px; border-radius: 4px; box-sizing: border-box; }
 .message-bubble { background: #000; padding: 20px; border-left: 4px solid var(--red); margin-bottom: 15px; }
 
-.site-footer { text-align: center; padding: 80px 0; color: #444; }
-
 @media (max-width: 900px) {
-  .hero-flex, .guest-interface { grid-template-columns: 1fr; text-align: center; }
+  .hero-flex, .project-grid, .guest-interface { grid-template-columns: 1fr; text-align: center; }
   .hero-text h1 { font-size: 3.5rem; }
+  .bio { margin: 0 auto 40px; }
   .img-frame { margin: 0 auto; width: 280px; }
 }
 </style>
