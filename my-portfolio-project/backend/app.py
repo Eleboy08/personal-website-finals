@@ -8,8 +8,8 @@ app = Flask(__name__)
 CORS(app)
 
 # These pull the keys you just added to the Vercel Settings
-SUPABASE_URL = os.environ.get("https://fpigatbztysvppkqcwfy.supabase.com")
-SUPABASE_KEY = os.environ.get("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwaWdhdGJ6dHlzdnBwa3Fjd2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0Mzk0MzIsImV4cCI6MjA4NzAxNTQzMn0.Zhe64O_HME3slUFnDOj3dK_9P0szhAG3y8MFcV-Rd4o")
+SUPABASE_URL = os.environ.get("https://dppypjnbrmhrenarjbvp.supabase.co")
+SUPABASE_KEY = os.environ.get("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwcHlwam5icm1ocmVuYXJqYnZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NDUyNzksImV4cCI6MjA4NzQyMTI3OX0.Y8JCPbmF-ygNT9MWpn9pwTNaVYb9A0zgfFVu0qoZfFU")
 
 # Safety check to prevent the "url required" crash
 if not SUPABASE_URL or not SUPABASE_KEY:
