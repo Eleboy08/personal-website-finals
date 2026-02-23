@@ -79,7 +79,7 @@ const loading = ref(false);
 /** * REPLACE THE LINK BELOW with your Port 5000 Forwarded Address 
  * and keep '/api/comments' at the end!
  */
-const API_URL = 'https://cuddly-winner-97r7jqqqqgj53xg5q-5000.app.github.dev/api/comments'; 
+const API_URL = 'ttps://personal-website-finals-ashen-tau.vercel.app/api/comments'; 
 
 const fetchComments = async () => {
   try {
