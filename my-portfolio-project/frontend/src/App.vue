@@ -70,7 +70,7 @@
 
           <div class="comments-list">
             <h4>Recent Messages</h4>
-            <div v-if="comments.length === 0" class="no-comments">No messages yet. Be the first!</div>
+            <div v-if="comments.length === 0" class="no-comments">Database not connected yet. Messages will appear here!</div>
             <div v-else class="comment" v-for="comment in comments" :key="comment.id">
               <strong>{{ comment.name }}</strong>
               <p>{{ comment.message }}</p>
@@ -91,7 +91,6 @@ const comments = ref([]);
 const newComment = ref({ name: '', message: '' });
 const isSubmitting = ref(false);
 
-// Change this to your Render URL once deployed!
 const API_URL = 'http://127.0.0.1:5000/api/comments'; 
 
 const fetchComments = async () => {
@@ -99,9 +98,13 @@ const fetchComments = async () => {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
-    comments.value = data;
+    
+    // Check if the response is actually an array before assigning
+    if (Array.isArray(data)) {
+      comments.value = data;
+    }
   } catch (error) {
-    console.error("Error fetching comments:", error);
+    console.error("Error fetching comments. (Expected if Supabase is not connected yet):", error);
   }
 };
 
@@ -119,9 +122,12 @@ const submitComment = async () => {
     if (response.ok) {
       await fetchComments(); 
       newComment.value = { name: '', message: '' }; 
+    } else {
+      alert("Please connect your Supabase database in backend/app.py first!");
     }
   } catch (error) {
     console.error("Error submitting comment:", error);
+    alert("Please connect your Supabase database in backend/app.py first!");
   } finally {
     isSubmitting.value = false;
   }
