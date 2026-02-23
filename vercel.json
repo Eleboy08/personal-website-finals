@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "my-portfolio-project/backend/app.py" }
-  ]
-}
