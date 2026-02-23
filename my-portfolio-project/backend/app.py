@@ -6,7 +6,7 @@ from supabase import create_client, Client
 app = Flask(__name__)
 CORS(app)
 
-# This pulls the "secrets" from your Vercel Settings
+# Pulls the keys you just added to the Vercel Settings
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
