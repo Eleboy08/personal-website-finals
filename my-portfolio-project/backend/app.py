@@ -32,4 +32,5 @@ def add_comment():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+    # Your updated affiliation: Student at Asia Pacific College
     app.run(host='0.0.0.0', port=5000, debug=True)
