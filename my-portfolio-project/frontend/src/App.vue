@@ -2,76 +2,70 @@
   <div class="main-wrapper">
     <nav class="nav-container">
       <div class="nav-logo">ELEBOY<span>08</span></div>
-      <div class="nav-menu">
+      <div class="nav-links">
         <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Portfolio</a>
-        <a href="#guestbook" class="contact-trigger">Connect</a>
+        <a href="#projects">Works</a>
+        <a href="#guestbook" class="btn-accent">Connect</a>
       </div>
     </nav>
 
-    <header class="hero-block">
+    <header class="hero-section">
       <div class="hero-flex">
-        <div class="hero-content">
-          <p class="dev-tag">&lt;Computer Science Student /&gt;</p>
-          <h1>Heinrich M.<br><span class="crimson">Tobias</span></h1>
-          <p class="summary">
-            19-year-old developer at **FEU Tech**. Specializing in Web Development, 
-            Cybersecurity, and Embedded Systems. I build solutions like **Jester's Hat Vault** and hardware-integrated **Smart Alarms**.
+        <div class="hero-text">
+          <p class="role-tag">// 2nd Year BSCS-SF Student</p>
+          <h1>Heinrich M.<br><span class="highlight">Tobias</span></h1>
+          <p class="bio">
+            19-year-old developer at **FEU Institute of Technology**. 
+            Passionate about Web Security, Embedded Systems, and building secure applications.
           </p>
-          <div class="cta-group">
-            <a href="https://github.com/Eleboy08" target="_blank" class="btn-main">GITHUB</a>
-            <a href="#projects" class="btn-ghost">VIEW WORKS</a>
+          <div class="cta-btns">
+            <a href="https://github.com/Eleboy08" target="_blank" class="btn-red">GITHUB</a>
+            <a href="#projects" class="btn-outline">VIEW PROJECTS</a>
           </div>
         </div>
-        <div class="hero-frame">
-          <div class="image-box">
+        <div class="hero-image">
+          <div class="img-frame">
             <img src="./assets/elele.jpg" alt="Heinrich Tobias" class="profile-img" />
-            <div class="accent-glow"></div>
+            <div class="glow-effect"></div>
           </div>
         </div>
       </div>
     </header>
 
-    <section id="about" class="details-section">
-      <div class="details-grid">
-        <div class="info-card">
-          <h3>Personal Info</h3>
-          <ul>
-            <li><strong>Age:</strong> 19</li>
-            <li><strong>Location:</strong> Philippines</li>
-            <li><strong>Hobbies:</strong> Basketball & Cooking</li>
-          </ul>
+    <section id="projects" class="project-section">
+      <h2 class="title">Technical <span class="highlight">Projects</span></h2>
+      <div class="project-grid">
+        <div class="card">
+          <span class="cat">Cybersecurity</span>
+          <h3>Jester's Hat Vault</h3>
+          <p>Secure file management system using AES encryption.</p>
         </div>
-        <div class="info-card">
-          <h3>Academic Focus</h3>
-          <p>Currently a 2nd-year BSCS-SF student focusing on AES Encryption and IoT Cloud systems (ThingSpeak/Arduino IoT).</p>
+        <div class="card">
+          <span class="cat">Embedded Systems</span>
+          <h3>Smart Alarm</h3>
+          <p>Arduino-based system with pressure mats and smart lighting.</p>
         </div>
       </div>
     </section>
 
-    <section id="guestbook" class="guest-container">
-      <h2 class="section-heading">Guest <span class="crimson">Book</span></h2>
+    <section id="guestbook" class="guestbook-section">
+      <h2 class="title">Guest <span class="highlight">Book</span></h2>
       <div class="guest-interface">
-        <div class="form-side">
-          <input v-model="newComment.name" placeholder="Name" />
-          <textarea v-model="newComment.message" placeholder="Leave a message..."></textarea>
-          <button @click="submitComment" :disabled="loading" class="btn-main">
+        <div class="form-container">
+          <input v-model="newComment.name" placeholder="Your Name" required />
+          <textarea v-model="newComment.message" placeholder="Leave a message..." required></textarea>
+          <button @click="submitComment" :disabled="loading" class="btn-red">
             {{ loading ? 'SENDING...' : 'SIGN GUESTBOOK' }}
           </button>
         </div>
-        <div class="list-side">
-          <div v-for="c in comments" :key="c.id" class="comment-bubble">
+        <div class="message-list">
+          <div v-for="c in comments" :key="c.id" class="message-bubble">
             <strong>{{ c.name }}</strong>
             <p>{{ c.message }}</p>
           </div>
         </div>
       </div>
     </section>
-
-    <footer class="site-footer">
-      <p>Built by Heinrich M. Tobias | 2026</p>
-    </footer>
   </div>
 </template>
 
@@ -82,8 +76,10 @@ const comments = ref([]);
 const newComment = ref({ name: '', message: '' });
 const loading = ref(false);
 
-// *** REPLACE THIS with your Port 5000 URL from the PORTS tab! ***
-const API_URL = 'https://REPLACE_WITH_YOUR_PORT_5000_LINK.app.github.dev/api/comments';
+/** * REPLACE THE LINK BELOW with your Port 5000 Forwarded Address 
+ * and keep '/api/comments' at the end!
+ */
+const API_URL = 'https://cuddly-winner-97r7jqqqqgj53xg5q-5000.app.github.dev/api/comments'; 
 
 const fetchComments = async () => {
   try {
@@ -114,45 +110,50 @@ onMounted(fetchComments);
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
-
-:root { --crimson: #ff3333; --bg: #0d0d0d; --surface: #171717; }
+:root { --red: #ff3333; --bg: #0d0d0d; --card: #181818; }
 body { background: var(--bg); color: #fff; font-family: 'Outfit', sans-serif; margin: 0; scroll-behavior: smooth; }
 
-/* Crimson & Dark Styling */
-.crimson { color: var(--crimson); }
-.btn-main { background: var(--crimson); border: none; color: #fff; padding: 14px 30px; font-weight: 900; letter-spacing: 1px; cursor: pointer; border-radius: 4px; }
-.btn-main:hover { box-shadow: 0 0 15px rgba(255, 51, 51, 0.4); }
-.btn-ghost { border: 1px solid var(--crimson); color: var(--crimson); padding: 14px 30px; text-decoration: none; margin-left: 15px; border-radius: 4px; }
+/* Global Styling */
+.highlight { color: var(--red); }
+.btn-red { background: var(--red); border: none; color: white; padding: 14px 28px; font-weight: 900; cursor: pointer; border-radius: 4px; text-decoration: none; display: inline-block; }
+.btn-outline { border: 1px solid var(--red); color: var(--red); padding: 14px 28px; text-decoration: none; margin-left: 15px; border-radius: 4px; display: inline-block; }
+.btn-accent { color: var(--red); text-decoration: none; font-weight: 900; padding: 10px 20px; border: 1px solid var(--red); }
 
-/* Structural Layout */
+/* Layouts */
 .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
 .nav-container { display: flex; justify-content: space-between; padding: 50px 0; align-items: center; }
-.nav-logo { font-weight: 900; font-size: 1.4rem; }
-.nav-logo span { color: var(--crimson); }
-.nav-menu a { margin-left: 30px; text-decoration: none; color: #999; transition: 0.3s; }
-.nav-menu a:hover { color: var(--crimson); }
+.nav-logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
+.nav-logo span { color: var(--red); }
+.nav-links a { margin-left: 25px; text-decoration: none; color: #888; font-size: 0.9rem; transition: 0.3s; }
+.nav-links a:hover { color: var(--red); }
 
-.hero-block { padding: 100px 0; }
+/* Hero */
+.hero-section { padding: 80px 0; }
 .hero-flex { display: flex; align-items: center; justify-content: space-between; gap: 60px; }
-.hero-content h1 { font-size: 5rem; margin: 10px 0; line-height: 1; font-weight: 900; }
-.dev-tag { color: var(--crimson); font-family: monospace; font-size: 1.1rem; }
-.summary { color: #888; font-size: 1.3rem; line-height: 1.6; max-width: 550px; margin-bottom: 40px; }
+.hero-text h1 { font-size: 5rem; line-height: 1; margin: 15px 0; font-weight: 900; }
+.role-tag { color: var(--red); font-family: monospace; font-size: 1.1rem; }
+.bio { font-size: 1.25rem; color: #999; line-height: 1.6; max-width: 550px; margin-bottom: 40px; }
 
-.image-box { position: relative; width: 380px; }
-.profile-img { width: 100%; border-radius: 12px; position: relative; z-index: 5; border: 2px solid #222; }
-.accent-glow { position: absolute; width: 100%; height: 100%; top: 20px; left: 20px; border: 3px solid var(--crimson); border-radius: 12px; z-index: 1; opacity: 0.5; }
+.img-frame { position: relative; width: 360px; }
+.profile-img { width: 100%; border-radius: 12px; border: 2px solid #222; position: relative; z-index: 5; }
+.glow-effect { position: absolute; top: 15px; left: 15px; width: 100%; height: 100%; border: 3px solid var(--red); border-radius: 12px; z-index: 1; opacity: 0.4; }
 
-.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 80px 0; }
-.info-card { background: var(--surface); padding: 40px; border-radius: 12px; }
+/* Sections */
+.title { font-size: 3rem; text-align: center; margin-bottom: 60px; font-weight: 900; }
+.project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 100px; }
+.card { background: var(--card); padding: 40px; border-radius: 12px; transition: 0.3s; }
+.card:hover { transform: translateY(-5px); border-bottom: 3px solid var(--red); }
+.cat { color: var(--red); font-size: 0.8rem; font-weight: 900; text-transform: uppercase; }
 
-.guest-interface { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
-input, textarea { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
-.comment-bubble { background: var(--surface); padding: 20px; border-left: 4px solid var(--crimson); margin-bottom: 15px; }
-
-.site-footer { text-align: center; padding: 80px 0; color: #444; }
+/* Guestbook */
+.guest-interface { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; background: #111; padding: 40px; border-radius: 12px; border: 1px solid #222; }
+input, textarea { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 15px; margin-bottom: 20px; border-radius: 4px; box-sizing: border-box; }
+.message-bubble { background: #000; padding: 20px; border-left: 4px solid var(--red); margin-bottom: 15px; }
 
 @media (max-width: 900px) {
-  .hero-flex, .details-grid, .guest-interface { grid-template-columns: 1fr; flex-direction: column; text-align: center; }
-  .hero-content h1 { font-size: 3.5rem; }
+  .hero-flex, .project-grid, .guest-interface { grid-template-columns: 1fr; text-align: center; }
+  .hero-text h1 { font-size: 3.5rem; }
+  .bio { margin: 0 auto 40px; }
+  .img-frame { margin: 0 auto; width: 280px; }
 }
 </style>

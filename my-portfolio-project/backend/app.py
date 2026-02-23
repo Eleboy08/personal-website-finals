@@ -4,9 +4,10 @@ from flask_cors import CORS
 from supabase import create_client, Client
 
 app = Flask(__name__)
-CORS(app) # Allows the frontend to communicate with this API
+# Enable CORS so your Vue frontend can talk to this Flask API
+CORS(app)
 
-# Your Supabase Credentials
+# Your confirmed Supabase credentials
 SUPABASE_URL = "https://kowqprybqprnrutcsfuk.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3FwcnlicXBybnJ1dGNzZnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4Mzk2MzQsImV4cCI6MjA4NzQxNTYzNH0.P8QqFv6S1OLhyZ9OaYJKaKmY0zsQoCwVuqT_e0xtPGg"
 
