@@ -4,7 +4,7 @@ from flask_cors import CORS
 from supabase import create_client, Client
 
 app = Flask(__name__)
-# Enable CORS so your Vue frontend can talk to this Flask API
+# Enable CORS so your Vue frontend can communicate with this Flask API
 CORS(app)
 
 # Your confirmed Supabase credentials
@@ -32,5 +32,6 @@ def add_comment():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Your updated affiliation: Student at Asia Pacific College
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Running as a student at Asia Pacific College
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
