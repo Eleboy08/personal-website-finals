@@ -1,51 +1,77 @@
 <template>
-  <div class="app-container">
-    <nav class="navbar">
-      <div class="logo">ELEBOY<span>.08</span></div>
-      <div class="nav-links">
+  <div class="main-wrapper">
+    <nav class="nav-container">
+      <div class="nav-logo">ELEBOY<span>08</span></div>
+      <div class="nav-menu">
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#guestbook">Guestbook</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Portfolio</a>
+        <a href="#guestbook" class="contact-trigger">Connect</a>
       </div>
     </nav>
 
-    <header class="hero">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h2 class="greeting">Hi, I'm</h2>
-          <h1 class="name">Heinrich M. <span>Tobias</span></h1>
-          <p class="bio">2nd Year BSCS-SF Student | Web Dev | Cybersecurity | Arduino Tinkerer</p>
-          <div class="hero-btns">
-            <a href="https://github.com/Eleboy08" target="_blank" class="btn-primary">View GitHub</a>
+    <header class="hero-block">
+      <div class="hero-flex">
+        <div class="hero-content">
+          <p class="dev-tag">&lt;Computer Science Student /&gt;</p>
+          <h1>Heinrich M.<br><span class="crimson">Tobias</span></h1>
+          <p class="summary">
+            19-year-old developer at **FEU Tech**. Specializing in Web Development, 
+            Cybersecurity, and Embedded Systems. I build solutions like **Jester's Hat Vault** and hardware-integrated **Smart Alarms**.
+          </p>
+          <div class="cta-group">
+            <a href="https://github.com/Eleboy08" target="_blank" class="btn-main">GITHUB</a>
+            <a href="#projects" class="btn-ghost">VIEW WORKS</a>
           </div>
         </div>
-        <div class="hero-visual">
-          <div class="profile-frame">
-            <img src="./assets/profile.jpg" alt="Profile" />
+        <div class="hero-frame">
+          <div class="image-box">
+            <img src="./assets/elele.jpg" alt="Heinrich Tobias" class="profile-img" />
+            <div class="accent-glow"></div>
           </div>
         </div>
       </div>
     </header>
 
-    <section id="guestbook" class="guestbook-section">
-      <h2 class="section-title">Guestbook</h2>
-      <div class="guestbook-grid">
-        <div class="form-container">
-          <form @submit.prevent="submitComment">
-            <input v-model="newComment.name" placeholder="Your Name" required />
-            <textarea v-model="newComment.message" placeholder="Leave a message..." required></textarea>
-            <button type="submit" :disabled="loading">{{ loading ? 'Sending...' : 'Post Message' }}</button>
-          </form>
+    <section id="about" class="details-section">
+      <div class="details-grid">
+        <div class="info-card">
+          <h3>Personal Info</h3>
+          <ul>
+            <li><strong>Age:</strong> 19</li>
+            <li><strong>Location:</strong> Philippines</li>
+            <li><strong>Hobbies:</strong> Basketball & Cooking</li>
+          </ul>
         </div>
-        <div class="messages-container">
-          <div v-for="c in comments" :key="c.id" class="message-card">
-            <h4>{{ c.name }}</h4>
+        <div class="info-card">
+          <h3>Academic Focus</h3>
+          <p>Currently a 2nd-year BSCS-SF student focusing on AES Encryption and IoT Cloud systems (ThingSpeak/Arduino IoT).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="guestbook" class="guest-container">
+      <h2 class="section-heading">Guest <span class="crimson">Book</span></h2>
+      <div class="guest-interface">
+        <div class="form-side">
+          <input v-model="newComment.name" placeholder="Name" />
+          <textarea v-model="newComment.message" placeholder="Leave a message..."></textarea>
+          <button @click="submitComment" :disabled="loading" class="btn-main">
+            {{ loading ? 'SENDING...' : 'SIGN GUESTBOOK' }}
+          </button>
+        </div>
+        <div class="list-side">
+          <div v-for="c in comments" :key="c.id" class="comment-bubble">
+            <strong>{{ c.name }}</strong>
             <p>{{ c.message }}</p>
-            <span class="date">{{ new Date(c.created_at).toLocaleDateString() }}</span>
           </div>
         </div>
       </div>
     </section>
+
+    <footer class="site-footer">
+      <p>Built by Heinrich M. Tobias | 2026</p>
+    </footer>
   </div>
 </template>
 
@@ -56,17 +82,18 @@ const comments = ref([]);
 const newComment = ref({ name: '', message: '' });
 const loading = ref(false);
 
-// PASTE YOUR PORT 5000 LINK HERE!
-const API_URL = 'https://PASTE_YOUR_LINK_HERE/api/comments';
+// *** REPLACE THIS with your Port 5000 URL from the PORTS tab! ***
+const API_URL = 'https://REPLACE_WITH_YOUR_PORT_5000_LINK.app.github.dev/api/comments';
 
 const fetchComments = async () => {
   try {
     const res = await fetch(API_URL);
     if (res.ok) comments.value = await res.json();
-  } catch (err) { console.error(err); }
+  } catch (err) { console.error("Database connection failed."); }
 };
 
 const submitComment = async () => {
+  if(!newComment.value.name || !newComment.value.message) return;
   loading.value = true;
   try {
     const res = await fetch(API_URL, {
@@ -78,7 +105,7 @@ const submitComment = async () => {
       newComment.value = { name: '', message: '' };
       await fetchComments();
     }
-  } catch (err) { alert("Check if Backend is running!"); }
+  } catch (err) { alert("Check your Backend Terminal!"); }
   finally { loading.value = false; }
 };
 
@@ -86,32 +113,46 @@ onMounted(fetchComments);
 </script>
 
 <style>
-:root { --primary: #ff4742; --bg: #0a0a0a; --card: #151515; --text: #ffffff; }
-body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; }
-.app-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
 
-/* Navbar */
-.navbar { display: flex; justify-content: space-between; padding: 30px 0; }
-.logo { font-weight: 800; font-size: 1.5rem; }
-.logo span { color: var(--primary); }
-.nav-links a { margin-left: 30px; text-decoration: none; color: #888; transition: 0.3s; }
-.nav-links a:hover { color: var(--primary); }
+:root { --crimson: #ff3333; --bg: #0d0d0d; --surface: #171717; }
+body { background: var(--bg); color: #fff; font-family: 'Outfit', sans-serif; margin: 0; scroll-behavior: smooth; }
 
-/* Hero */
-.hero { padding: 100px 0; }
-.hero-content { display: flex; align-items: center; justify-content: space-between; gap: 50px; }
-.hero-text h1 { font-size: 4.5rem; margin: 0; }
-.hero-text h1 span { color: var(--primary); }
-.bio { color: #888; font-size: 1.2rem; margin: 20px 0; }
-.profile-frame { width: 350px; height: 350px; border: 4px solid var(--primary); position: relative; }
-.profile-frame img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 15px; left: 15px; }
+/* Crimson & Dark Styling */
+.crimson { color: var(--crimson); }
+.btn-main { background: var(--crimson); border: none; color: #fff; padding: 14px 30px; font-weight: 900; letter-spacing: 1px; cursor: pointer; border-radius: 4px; }
+.btn-main:hover { box-shadow: 0 0 15px rgba(255, 51, 51, 0.4); }
+.btn-ghost { border: 1px solid var(--crimson); color: var(--crimson); padding: 14px 30px; text-decoration: none; margin-left: 15px; border-radius: 4px; }
 
-/* Guestbook */
-.guestbook-section { padding: 100px 0; }
-.guestbook-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-input, textarea { width: 100%; background: var(--card); border: 1px solid #333; color: white; padding: 15px; margin-bottom: 15px; }
-button { background: var(--primary); color: white; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer; width: 100%; }
-.message-card { background: var(--card); padding: 20px; border-left: 4px solid var(--primary); margin-bottom: 15px; }
-.message-card h4 { margin: 0; color: var(--primary); }
-.date { font-size: 0.8rem; color: #555; }
+/* Structural Layout */
+.main-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.nav-container { display: flex; justify-content: space-between; padding: 50px 0; align-items: center; }
+.nav-logo { font-weight: 900; font-size: 1.4rem; }
+.nav-logo span { color: var(--crimson); }
+.nav-menu a { margin-left: 30px; text-decoration: none; color: #999; transition: 0.3s; }
+.nav-menu a:hover { color: var(--crimson); }
+
+.hero-block { padding: 100px 0; }
+.hero-flex { display: flex; align-items: center; justify-content: space-between; gap: 60px; }
+.hero-content h1 { font-size: 5rem; margin: 10px 0; line-height: 1; font-weight: 900; }
+.dev-tag { color: var(--crimson); font-family: monospace; font-size: 1.1rem; }
+.summary { color: #888; font-size: 1.3rem; line-height: 1.6; max-width: 550px; margin-bottom: 40px; }
+
+.image-box { position: relative; width: 380px; }
+.profile-img { width: 100%; border-radius: 12px; position: relative; z-index: 5; border: 2px solid #222; }
+.accent-glow { position: absolute; width: 100%; height: 100%; top: 20px; left: 20px; border: 3px solid var(--crimson); border-radius: 12px; z-index: 1; opacity: 0.5; }
+
+.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 80px 0; }
+.info-card { background: var(--surface); padding: 40px; border-radius: 12px; }
+
+.guest-interface { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+input, textarea { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+.comment-bubble { background: var(--surface); padding: 20px; border-left: 4px solid var(--crimson); margin-bottom: 15px; }
+
+.site-footer { text-align: center; padding: 80px 0; color: #444; }
+
+@media (max-width: 900px) {
+  .hero-flex, .details-grid, .guest-interface { grid-template-columns: 1fr; flex-direction: column; text-align: center; }
+  .hero-content h1 { font-size: 3.5rem; }
+}
 </style>
