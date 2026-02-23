@@ -7,10 +7,9 @@ app = Flask(__name__)
 # Allow your Vue frontend to communicate with this API
 CORS(app)
 
-# FIXED: Added a correctly formatted dummy URL to prevent the crash.
-# You will replace these with your real Supabase keys later.
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://dummy.supabase.co")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "dummy-key")
+# Your real Supabase URL and Key
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://kowqprybqprnrutcsfuk.supabase.co")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3FwcnlicXBybnJ1dGNzZnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4Mzk2MzQsImV4cCI6MjA4NzQxNTYzNH0.P8QqFv6S1OLhyZ9OaYJKaKmY0zsQoCwVuqT_e0xtPGg")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
